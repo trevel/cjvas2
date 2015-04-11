@@ -23,7 +23,6 @@ public class Employee implements java.io.Serializable {
 	BigDecimal comm_pct = null;
 	int manager_id;
 	int dept_id;
-	String message = null;
 	
 	public Employee() {
 		super();
