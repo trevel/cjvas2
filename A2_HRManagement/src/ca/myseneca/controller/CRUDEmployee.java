@@ -70,21 +70,28 @@ public class CRUDEmployee extends HttpServlet {
 		emp.setManager_id(Integer.parseInt(request.getParameter("mgrid")));
 		emp.setDept_id(Integer.parseInt(request.getParameter("deptid")));
 		
+		int result = 0;
+		
+		// Create button
 		if(request.getParameter("create") != null) {
 			emp.setEmployee_id(0); // need to make sure it's initialized before creating
-			emp.setEmployee_id(DBAccessHelper.addNewEmployee(emp)); // now populate it with the new id.
-			if (emp.getEmployee_id() == 0) {
+			result = DBAccessHelper.addNewEmployee(emp);
+			
+			if (result == 0 ) {
 				request.setAttribute("statusmessage", "Could not create record; check fields");
 				this.getServletContext().getRequestDispatcher("/statusPage.jsp").forward(request, response);
 			} else {
+				emp.setEmployee_id(result); // populate emp with the new id.
 				request.getSession(false).setAttribute("notice", "Record successfully created!");
 				response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/HRM_EMP/" + emp.getEmployee_id()));
 				return;
 			}
+			
+		// Update button
 		} else if(request.getParameter("update") != null) {
-			System.out.println(request.getParameter("id"));
 			emp.setEmployee_id(Integer.parseInt(request.getParameter("id")));
-			if (DBAccessHelper.updateEmployee(emp) == 0) {
+			result = DBAccessHelper.updateEmployee(emp);
+			if (result == 0) {
 				request.setAttribute("statusmessage", "Could not update record; check fields");
 				this.getServletContext().getRequestDispatcher("/statusPage.jsp").forward(request, response);
 			} else {
@@ -92,8 +99,11 @@ public class CRUDEmployee extends HttpServlet {
 				response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/HRM_EMP/" + emp.getEmployee_id()));
 				return;
 			}
+			
+		// Delete button	
 		} else if(request.getParameter("delete") != null) {
-			if (DBAccessHelper.deleteEmployeeByID(Integer.parseInt(request.getParameter("id"))) == 0 ) {
+			result = DBAccessHelper.deleteEmployeeByID(Integer.parseInt(request.getParameter("id"))); 
+			if (result == 0 ) {
 				request.setAttribute("statusmessage", "Could not delete record; check fields");
 				this.getServletContext().getRequestDispatcher("/statusPage.jsp").forward(request, response);
 			} else {

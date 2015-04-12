@@ -249,6 +249,7 @@ public final class DBAccessHelper {
 			}
 		} catch (SQLException e) {
 			DBUtilities.printSQLException(e);
+			new_id = 0;
 		} finally {
 			// clean up
 			try {
@@ -597,7 +598,7 @@ public final class DBAccessHelper {
 	/**
 	 * get a list of all the departments
 	 * 
-	 * @return a list of all departments. null if there are none
+	 * @return an ArrayList of all departments; empty if there aren't any; null on error
 	 */
 	public static ArrayList<Department> getAllDepartments() {
 		ArrayList<Department> tmpList = null;

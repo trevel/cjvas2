@@ -21,6 +21,10 @@ public class EmpByDept extends HttpServlet {
        
     /**
      * @see HttpServlet#HttpServlet()
+     * 
+     * Creates a list of employees in a department.
+     * 
+     * @params dept_id department id to look for. 
      */
     public EmpByDept() {
         super();
@@ -28,6 +32,10 @@ public class EmpByDept extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Creates a list of employees in a department.
+     * 
+     * @params dept_id department id to look for. 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean bFailed = false;

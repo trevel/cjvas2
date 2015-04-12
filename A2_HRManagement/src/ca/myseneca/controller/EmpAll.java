@@ -21,14 +21,17 @@ public class EmpAll extends HttpServlet {
        
     /**
      * @see HttpServlet#HttpServlet()
+     * 
+     * Gathers a list of all employees and forwards to ShowEmployees.jsp
      */
     public EmpAll() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Gathers all employees and forwards to ShowEmployees (or statuspage on error)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean bFailed = false;
@@ -51,6 +54,8 @@ public class EmpAll extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Gathers all employees and forwards to ShowEmployees (or statuspage on error)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
