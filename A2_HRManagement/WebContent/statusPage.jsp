@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>HR Management Error</title>
+<title>HR Management Status</title>
 <link rel="stylesheet" href="styles/main.css" media="screen"/>
 <%
 	//check if session exists to ensure the user has gone throuht the sign-in page	
@@ -31,11 +31,11 @@
     </nav>
 	<section class="main">
     	<header>
-        	<h1 id="template"><span>HR Management - Error</span></h1>
+        	<h1 id="template"><span>HR Management - Status</span></h1>
         </header>
         <!-- HTML5 and normalize.css -->
 		<div class="content">
-			<p>An error has occurred! <c:out value="${errmessage}"/></p>
+			<p><c:out value="${statusmessage}"/></p>
 		</div>
 	</section>
     <!-- Footer -->

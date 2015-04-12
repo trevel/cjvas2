@@ -40,7 +40,8 @@ public class EmpAll extends HttpServlet {
 			e.printStackTrace();
 		} 
 		if (bFailed == true) {
-			this.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
+			request.setAttribute("statusmessage", "An error has occurred!");
+			this.getServletContext().getRequestDispatcher("/statusPage.jsp").forward(request, response);
 		} else {
 			request.setAttribute("topmessage", "Here is the list of all employees");
 			request.setAttribute("employeeList", empList);

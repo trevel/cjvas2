@@ -44,15 +44,16 @@ public class EmpByDept extends HttpServlet {
 				request.setAttribute("topmessage", "Here is the information of employees from department of " + deptName);
 				empList = DBAccessHelper.getEmployeesByDepartmentID(dept);
 			} else {
-				request.setAttribute("errmessage", "Department " + dept + " does not exist!");
+				request.setAttribute("statusmessage", "Department " + dept + " does not exist!");
 				bFailed = true;
 			}
 		} catch (Exception e) {
 			bFailed = true;
+			request.setAttribute("statusmessage", "An error has occurred!");
 			e.printStackTrace();
 		} 
 		if (bFailed == true) {
-			this.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/statusPage.jsp").forward(request, response);
 		} else {
 			request.setAttribute("employeeList", empList);
 			this.getServletContext().getRequestDispatcher("/ShowEmployees.jsp").forward(request, response);
