@@ -12,7 +12,7 @@
 </jsp:useBean>
 
 <%
-	//check if session exists to ensure the user has gone throuht the sign-in page	
+	//check if session exists to ensure the user has gone through the sign-in page	
 	if (session.getAttribute("employee") == null) {
 		response.sendRedirect("../index.html");
 	}
@@ -41,7 +41,9 @@
         </header>
         <!-- HTML5 and normalize.css -->
 		<div class="content">
-          <form action="HRM_EMPLOYEE" method="post">
+		  ${notice}
+		  <c:remove var="notice" scope="session" />
+          <form action="../HRM_EMPLOYEE" method="post">
           <input type="hidden" name="id" value="${emp.getEmployee_id()}" />
           <table>
           	<% if (emp.getEmployee_id() != 0 ) { %>

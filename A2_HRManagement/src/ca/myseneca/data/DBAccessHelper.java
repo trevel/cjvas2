@@ -194,23 +194,25 @@ public final class DBAccessHelper {
 	 * Adds a new employee to the database
 	 * 
 	 * @param emp The new Employee to add
+	 * @return The new id# if record created; 0 otherwise
 	 */
-	public static void addNewEmployee(Employee emp) {
+	public static int addNewEmployee(Employee emp) {
 		Statement stmt = null;
 		ResultSet rs = null;
+		int new_id = 0;
 		String sqlQuery = "SELECT employee_id, first_name, last_name, email, "
 				+ "phone_number, hire_date, job_id, salary, commission_pct, "
 				+ "manager_id, department_id FROM employees";
 		if (emp == null) {
 			// employee object is null...nothing for us to do
-			return;
+			return 0;
 		}
 		DBConnPool pool = DBConnPool.getInstance();
 		Connection conn = null;
 		try {
 			conn = pool.getConnection();
 			if (conn == null) {
-				return;
+				return 0;
 			}
 			// make the result set updatable
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -218,7 +220,7 @@ public final class DBAccessHelper {
 			// Get the highest id, increment.
 			rs = stmt.executeQuery("SELECT max(employee_id) FROM employees");
 			rs.next();
-			int new_id = rs.getInt(1) + 1;
+			new_id = rs.getInt(1) + 1;
 			rs.close();
 			
 			rs = stmt.executeQuery(sqlQuery);
@@ -243,6 +245,7 @@ public final class DBAccessHelper {
 				rs.moveToCurrentRow();
 			} else {
 				System.out.println("ResultSet is not an updatable result set.");
+				return 0;
 			}
 		} catch (SQLException e) {
 			DBUtilities.printSQLException(e);
@@ -256,8 +259,10 @@ public final class DBAccessHelper {
 				pool.freeConnection(conn);
 			} catch (SQLException e) {
 				DBUtilities.printSQLException(e);
+				return 0;
 			}
 		}
+		return new_id;
 	}
 
 	/**
