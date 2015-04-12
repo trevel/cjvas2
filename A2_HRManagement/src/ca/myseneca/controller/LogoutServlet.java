@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 /**
+ * @author Laurie Shields (034448142), Mark Lindan (063336143)
+ * 
  * Servlet implementation class LogoutServlet
  */
 @WebServlet("/HRM_LOGOUT")
@@ -22,7 +23,6 @@ public class LogoutServlet extends HttpServlet {
      */
     public LogoutServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -33,7 +33,7 @@ public class LogoutServlet extends HttpServlet {
 	    if(session != null){
 	        session.invalidate();
 	    }
-	    response.sendRedirect("index.jsp");
+	    response.sendRedirect("logout.html");
 	}
 	 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
