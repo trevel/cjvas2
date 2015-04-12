@@ -3,7 +3,6 @@ package ca.myseneca.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,7 +52,6 @@ public class EmployeeServlet extends HttpServlet {
 		// ArrayList<Employee> managers = DBAccessHelper.getAllEmployees();
 		ArrayList<Department> departments = DBAccessHelper.getAllDepartments();
 		request.setAttribute("departments", departments);
-		System.out.println(departments);
 		getServletContext().getRequestDispatcher("/NewEmployee.jsp").forward(request, response);
 	}
 

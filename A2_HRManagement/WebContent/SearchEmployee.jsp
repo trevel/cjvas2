@@ -43,6 +43,7 @@
 			<input type="submit" value="Go">
 			<br>
 		</form>
+		</div>
     </section>
         <!-- Footer -->
     <footer>
