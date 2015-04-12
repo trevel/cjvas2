@@ -29,7 +29,6 @@ public class CRUDEmployee extends HttpServlet {
      */
     public CRUDEmployee() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

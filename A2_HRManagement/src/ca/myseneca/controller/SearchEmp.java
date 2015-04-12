@@ -28,6 +28,10 @@ public class SearchEmp extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * @param searchStr the string to search for
+	 * 
+	 * @return a list of Employee records to ShowSearch.jsp
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = null;

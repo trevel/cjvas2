@@ -14,7 +14,7 @@
 <%
 	//check if session exists to ensure the user has gone through the sign-in page	
 	if (session.getAttribute("employee") == null) {
-		response.sendRedirect("../index.html");
+		response.sendRedirect("/A2_HRManagement/");
 	}
 %>
 </head>

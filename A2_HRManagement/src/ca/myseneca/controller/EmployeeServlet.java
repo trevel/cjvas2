@@ -37,10 +37,7 @@ public class EmployeeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			if (request.getSession(false) == null || request.getSession(false).getAttribute("employee") == null) {
-				getServletContext().getRequestDispatcher("/").forward(request, response);
-				return;
-			}
+
 			// To make more RESTful, grabs the number following the URL
 			String url = null;
 			url = (String) request.getAttribute("javax.servlet.forward.request_uri");
@@ -52,7 +49,14 @@ public class EmployeeServlet extends HttpServlet {
 				//getServletContext().getRequestDispatcher("/HRM_EMP/new").forward(request, response);
 				response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/HRM_EMP/new"));
 				return;
+			} else if (url.startsWith("HRM")) { 
+				response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/" + url));
+				return;
 			} else {
+				if (request.getSession(false) == null || request.getSession(false).getAttribute("employee") == null) {
+					response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/"));
+					return;
+				}
 				if(!url.equals("new")) {
 					try {
 						id = Integer.parseInt(url);
