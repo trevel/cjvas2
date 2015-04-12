@@ -24,7 +24,6 @@ public class EmpByDept extends HttpServlet {
      */
     public EmpByDept() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

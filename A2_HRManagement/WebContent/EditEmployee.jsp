@@ -19,7 +19,7 @@
 %>
 </head>
 <body>
-	<form id=logout action="HRM_LOGOUT" method="post">
+	<form id=logout action="../HRM_LOGOUT" method="post">
 		<strong>${employee.first_name} ${employee.last_name}</strong>
 		<input type="submit" value="Logout">
 	</form>
