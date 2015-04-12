@@ -31,14 +31,32 @@ public class EmpByDept extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int dept = Integer.parseInt(request.getParameter("dept_id"));
-		// LAURIE:: TODO - need code here
-		ArrayList<Employee> empList = DBAccessHelper.getEmployeesByDepartmentID(dept);
-		if (empList != null) {
-			
-		} else {
-			
+		ArrayList<Employee> empList = null;
+		int dept = 0;
+		String deptName = null;
+		String deptStr = request.getParameter("dept_id");
+		try {
+			if(deptStr !=null && !deptStr.isEmpty()) {
+			     dept = Integer.parseInt(deptStr.trim());
+			     System.out.println("dept id = " + dept);
+			}
+			deptName = DBAccessHelper.getDepartmentNameByID(dept);
+			if (deptName != null) {
+				request.setAttribute("topmessage", "Here is the information of employees from department of " + deptName);
+				empList = DBAccessHelper.getEmployeesByDepartmentID(dept);
+			} else {
+				// LAURIE::TODO error page? we got invalid department
+			}
+		} catch (Exception e) {
+			// LAURIE:: TODO
+			e.printStackTrace();
+		} finally {
+			// LAURIE:: TODO - need code here
 		}
+		// LAURIE:: TODO error page on failure
+		request.setAttribute("employeeList", empList);
+		this.getServletContext().getRequestDispatcher("/ShowEmployees.jsp").forward(request, response);
+
 	}
 
 	/**

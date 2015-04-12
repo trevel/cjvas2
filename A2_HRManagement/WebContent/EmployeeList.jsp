@@ -48,7 +48,7 @@
 			<br>
 			<br>
 		</form>
-		<form action="HRM_ALLEMP method="post">
+		<form action="HRM_ALLEMP" method="post">
 			<input type="submit" value="Show All Employees">
 		</form>
 		</div>

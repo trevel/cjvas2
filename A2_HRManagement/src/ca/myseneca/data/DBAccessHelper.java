@@ -149,7 +149,7 @@ public final class DBAccessHelper {
 		} // finally
 		return tmpList;
 	}
-
+		
 	/**
 	 * Get the Employee object for a specific employee_id
 	 * 
@@ -439,8 +439,43 @@ public final class DBAccessHelper {
 		}
 		return retVal;
 	}
-
-
+	
+	public static String getDepartmentNameByID(int deptId) {
+		String deptName = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DBConnPool pool = DBConnPool.getInstance();
+		Connection conn = null;
+		try {
+			conn = pool.getConnection();
+			if (conn == null) {
+				return null;
+			}
+			stmt = conn.prepareStatement("SELECT department_name "
+					+ "FROM departments WHERE department_id=?");
+			stmt.setInt(1, deptId);  // set the first parameter
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				// convert the data from the resultSet into Employee object
+				deptName = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			DBUtilities.printSQLException(e);
+		} finally {
+			try {
+				// clean up
+				if (stmt != null)
+					stmt.close();
+				if (rs != null)
+					rs.close();
+				pool.freeConnection(conn);
+			} catch (SQLException e) {
+				DBUtilities.printSQLException(e);
+			}
+		}
+		return deptName;
+	}
+	
 	/**
 	 * Searches for employees by a specified string
 	 * 
@@ -528,7 +563,6 @@ public final class DBAccessHelper {
 			return null;
 		}
 	}
-
 	public static ArrayList<Department> getAllDepartments() {
 		ArrayList<Department> tmpList = null;
 		PreparedStatement stmt = null;
@@ -566,4 +600,6 @@ public final class DBAccessHelper {
 		} // finally
 		return tmpList;
 	}
+}
+
 }

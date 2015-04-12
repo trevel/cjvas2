@@ -3,6 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>CJV805 - Assignment #2</title>
+<link rel="stylesheet" href="styles/main.css" media="screen"/>
 </head>
 <body>
 <h1>HR Management</h1>

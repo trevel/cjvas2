@@ -31,13 +31,20 @@ public class EmpAll extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// LAURIE:: TODO - need code here
-		ArrayList<Employee> empList = DBAccessHelper.getAllEmployees();
-		if (empList != null) {
-			
-		} else {
-			
+
+		ArrayList<Employee> empList = null;
+		try {
+			empList = DBAccessHelper.getAllEmployees();
+		} catch (Exception e) {
+			// LAURIE:: TODO
+			e.printStackTrace();
+		} finally {
+			// LAURIE:: TODO - need code here
 		}
+		// LAURIE:: TODO - error page for failure
+		request.setAttribute("topmessage", "Here is the list of all employees");
+		request.setAttribute("employeeList", empList);
+		this.getServletContext().getRequestDispatcher("/ShowEmployees.jsp").forward(request, response);
 	}
 
 	/**
