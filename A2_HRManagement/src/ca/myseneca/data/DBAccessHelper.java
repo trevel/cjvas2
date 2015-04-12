@@ -485,21 +485,20 @@ public final class DBAccessHelper {
 	 * @return A list of Employees, null if none found
 	 */
 	public static ArrayList<Employee> searchEmployeesByStr(String search ) {
-		// LAURIE:: TODO - fix the results
 		ArrayList<Employee> tmpList = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		DBConnPool pool = DBConnPool.getInstance();
 		Connection conn = null;
 		String pstr = null;
-		Employee emp = null;
+
 		try {
 			conn = pool.getConnection();
 			if (conn == null) {
 				return tmpList;
 			}
 			tmpList = new ArrayList<Employee>();
-			stmt = conn.prepareStatement("SELECT e.first_name = e.last_name As name, "
+/*			stmt = conn.prepareStatement("SELECT e.first_name, e.last_name, "
 					+ "e.email, e.phone_number, e.job_id, e.salary, d.department_name "
 					+ "FROM employees e "
 					+ "JOIN departments d"
@@ -508,7 +507,17 @@ public final class DBAccessHelper {
 					+ "OR last_name LIKE ? "
 					+ "OR phone_number LIKE ? "
 					+ "OR email LIKE ?"
-					+ "OR department LIKE ?");
+					+ "OR d.department_name LIKE ?");*/
+			stmt = conn.prepareStatement(
+					"SELECT e.first_name, e.last_name, e.email, e.phone_number, e.job_id, e.salary, d.department_name FROM employees e "
+					+ "JOIN departments d "
+					+ "ON (e.department_id=d.department_id) "
+					+ "WHERE e.first_name LIKE ? "
+					+ "OR e.last_name LIKE ? "
+					+ "OR e.phone_number LIKE ? "
+					+ "OR e.email LIKE ? "
+					+ "OR d.department_name LIKE ?"
+					+ "ORDER BY e.employee_id");
 			pstr = "%" + search +"%";
 			stmt.setString(1, pstr);  
 			stmt.setString(2, pstr);  
@@ -518,7 +527,14 @@ public final class DBAccessHelper {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				// convert the data from the resultSet into Employee object
-				emp = populateEmp(rs);
+				Employee emp = new Employee();
+				emp.setFirst_name(rs.getString(1));
+				emp.setLast_name(rs.getString(2));
+				emp.setEmail(rs.getString(3));
+				emp.setPhone_number(rs.getString(4));
+				emp.setJob_id(rs.getString(5));
+				emp.setSalary(rs.getBigDecimal(6));
+				emp.setDept_name(rs.getString(7));
 				// store the employee object in the ArrayList
 				tmpList.add(emp);
 			}

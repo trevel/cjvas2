@@ -38,7 +38,6 @@ public class EmpByDept extends HttpServlet {
 		try {
 			if(deptStr !=null && !deptStr.isEmpty()) {
 			     dept = Integer.parseInt(deptStr.trim());
-			     System.out.println("dept id = " + dept);
 			}
 			deptName = DBAccessHelper.getDepartmentNameByID(dept);
 			if (deptName != null) {
