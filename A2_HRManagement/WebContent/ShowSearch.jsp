@@ -10,7 +10,7 @@
 <%
 	//check if session exists to ensure the user has gone throuh the sign-in page	
 	if (session.getAttribute("employee") == null) {
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("index.html");
 	}
 %>
 </head>
