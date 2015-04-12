@@ -7,14 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New Employee Page</title>
 <link rel="stylesheet" href="../styles/main.css" media="screen"/>
-<jsp:useBean id="employee" class="ca.myseneca.model.Employee" scope="request">
-<jsp:setProperty name="employee" property="*"/>
+<jsp:useBean id="emp" class="ca.myseneca.model.Employee" scope="request">
+<jsp:setProperty name="emp" property="*"/>
 </jsp:useBean>
 
 <%
 	//check if session exists to ensure the user has gone throuht the sign-in page	
 	if (session.getAttribute("employee") == null) {
-		response.sendRedirect("index.jsp");
+		response.sendRedirect("../index.jsp");
 	}
 %>
 </head>
@@ -36,40 +36,40 @@
 	
     <section class="main">
     	<header>
-          <h1 id="template"><span>New Employee Page</span></h1>
+          <h1 id="template"><span>Employee Detail Page</span></h1>
+
+        </header>
+        <!-- HTML5 and normalize.css -->
+		<div class="content">
           <form action="HRM_EMPLOYEE" method="post">
-          <input type="hidden" name="id" value="${employee.getEmployee_id()}" />
+          <input type="hidden" name="id" value="${emp.getEmployee_id()}" />
           <table>
-          	<% if (employee.getEmployee_id() != 0 ) { %>
-          		<tr><td>Employee ID:</td>	<td>${employee.getEmployee_id()}</td></tr>
+          	<% if (emp.getEmployee_id() != 0 ) { %>
+          		<tr><td>Employee ID:</td>	<td>${emp.getEmployee_id()}</td></tr>
           	<% } %>
-          	<tr><td>First Name:</td>	<td><input type="text" name="fname" required value="${employee.getFirst_name()}" /></td></tr>
-          	<tr><td>Last Name:</td>		<td><input type="text" name="lname" required value="${employee.getLast_name()}" /></td></tr>
-          	<tr><td>Email:</td>			<td><input type="text" name="email" required value="${employee.getEmail()}" /></td></tr>
-          	<tr><td>Phone Number:</td>	<td><input type="text" name="phone" required value="${employee.getPhone_number()}" /></td></tr>
-          	<tr><td>Hire Date:</td>		<td><input type="date" name="hiredate" required value="${employee.getHire_date()}" /></td></tr>
-          	<tr><td>Job ID:</td>		<td><input type="text" name="jobid" required value="${employee.getJob_id()}" /></td></tr>
-          	<tr><td>Salary</td>			<td><input type="number" name="salary" required value="${employee.getSalary()}" /></td></tr>
-          	<tr><td>Comm Pct:</td>		<td><input type="number" name="commpct" max="0.5" step="0.01" value="${employee.getComm_pct()}" /></td></tr>
-          	<tr><td>Manager ID:</td>	<td><input type="number" name="mgrid" value="${employee.getManager_id()}" /></td></tr>
+          	<tr><td>First Name:</td>	<td><input type="text" name="fname" required value="${emp.getFirst_name()}" /></td></tr>
+          	<tr><td>Last Name:</td>		<td><input type="text" name="lname" required value="${emp.getLast_name()}" /></td></tr>
+          	<tr><td>Email:</td>			<td><input type="text" name="email" required value="${emp.getEmail()}" /></td></tr>
+          	<tr><td>Phone Number:</td>	<td><input type="text" name="phone" required value="${emp.getPhone_number()}" /></td></tr>
+          	<tr><td>Hire Date:</td>		<td><input type="date" name="hiredate" required value="${emp.getHire_date()}" /></td></tr>
+          	<tr><td>Job ID:</td>		<td><input type="text" name="jobid" required value="${emp.getJob_id()}" /></td></tr>
+          	<tr><td>Salary</td>			<td><input type="number" name="salary" required value="${emp.getSalary()}" /></td></tr>
+          	<tr><td>Comm Pct:</td>		<td><input type="number" name="commpct" max="0.5" step="0.01" value="${emp.getComm_pct()}" /></td></tr>
+          	<tr><td>Manager ID:</td>	<td><input type="number" name="mgrid" value="${emp.getManager_id()}" /></td></tr>
           	<tr><td>Department ID:</td>	<td>
           		<select name="deptid" required>
           			<c:forEach items="${departments}" var="dept">
-          				<option value="${dept.id}" ${dept.getId() == employee.getDept_id() ? 'selected' : ''}>${dept.name}</option>
+          				<option value="${dept.id}" ${dept.getId() == emp.getDept_id() ? 'selected' : ''}>${dept.name}</option>
           			</c:forEach>
           		</select></td></tr>
           </table>
-           	<% if (employee.getEmployee_id() != 0) { %>
+           	<% if (emp.getEmployee_id() != 0) { %>
           		<input type="Submit" name="update" value="Save edits" /><input type="Submit" name="delete" value="Delete record" />
           	<% } else { %>
           		<input type="Submit" name="create" value="Save new employee" />
           	<% } %>
           
-          </form>
-        </header>
-        <!-- HTML5 and normalize.css -->
-		<div class="content">
-		<p>Insert stuff here</p>
+          </form>		
 		</div>
     </section>
         <!-- Footer -->

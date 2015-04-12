@@ -16,7 +16,7 @@ import ca.myseneca.model.Employee;
 /**
  * Servlet implementation class Employee
  */
-@WebServlet({"/HRM_EMP", "/HRM_EMP/*"})
+@WebServlet("/HRM_EMP/*")
 public class EmployeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,9 +30,12 @@ public class EmployeeServlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Takes a URL HRM_EMP/{id} and forwards to EditEmployee. If /{id} is a valid record,
+	 * it loads that record in the form, otherwise it gives a new record interface.  
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// To make more RESTful, grabs the number following the URL
 		String url = null;
 		url = (String) request.getAttribute("javax.servlet.forward.request_uri");
 		url = url == null ? ((HttpServletRequest) request).getRequestURI() : url;
@@ -49,11 +52,12 @@ public class EmployeeServlet extends HttpServlet {
 					id = Integer.parseInt(url);
 					employee = DBAccessHelper.getEmployeeByID(id);
 				} catch (NumberFormatException e) {
-
+					// if it's not a valid integer, we treat it as a new employee. 
+					// Could alternately forward to a list, or some such. 
 				}
 			}
 		}
-		request.setAttribute("employee", employee);
+		request.setAttribute("emp", employee);
 		
 		// ArrayList<Employee> managers = DBAccessHelper.getAllEmployees();
 		ArrayList<Department> departments = DBAccessHelper.getAllDepartments();
@@ -65,7 +69,6 @@ public class EmployeeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		this.doGet(request, response);
 	}
 

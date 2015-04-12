@@ -16,6 +16,9 @@ import ca.myseneca.model.Employee;
 
 /**
  * Servlet implementation class CRUDEmployee
+ * 
+ * Controller for the EditEmployee.jsp view. Provides Create, Update and Delete mechanisms for 
+ * the employee records. 
  */
 @WebServlet({"/HRM_EMPLOYEE", "/HRM_EMP/HRM_EMPLOYEE"})
 public class CRUDEmployee extends HttpServlet {
@@ -31,14 +34,18 @@ public class CRUDEmployee extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * Should never be called; forwards the request do the default index page. 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Takes an employee object, creates a employee record and CUDs it based on button pressed. 
+	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Employee emp = new Employee();
@@ -50,7 +57,7 @@ public class CRUDEmployee extends HttpServlet {
 		try {
 			hire = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("hiredate"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			// If the date is bad, we abort...  
 			getServletContext().getRequestDispatcher("/EditEmployee.jsp").forward(request, response);
 		}
 		emp.setHire_date(new java.sql.Date(hire.getTime()));
@@ -71,8 +78,10 @@ public class CRUDEmployee extends HttpServlet {
 		} else if(request.getParameter("update") != null) {
 			System.out.println(request.getParameter("id"));
 			emp.setEmployee_id(Integer.parseInt(request.getParameter("id")));
+			// TODO - handle success/failure
 			DBAccessHelper.updateEmployee(emp);
 		} else if(request.getParameter("delete") != null) {
+			// TODO - handle success/failure
 			DBAccessHelper.deleteEmployeeByID(Integer.parseInt(request.getParameter("id")));
 		}
 		getServletContext().getRequestDispatcher("/HRM_EMP" ).forward(request, response);

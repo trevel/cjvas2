@@ -15,7 +15,7 @@ import ca.myseneca.model.Employee;
 /**
  * Servlet implementation class EmpAll
  */
-@WebServlet("/HRM_ALLEMP")
+@WebServlet({"/HRM_ALLEMP", "/HRM_EMP"})
 public class EmpAll extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
