@@ -122,7 +122,7 @@ label {
     font-weight: bold;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {  /* An attribute selector */
+input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], select{  /* An attribute selector */
     width: 15em;
     margin-left: 0.5em;    
     margin-bottom: 0.5em;

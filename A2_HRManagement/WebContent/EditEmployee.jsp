@@ -45,7 +45,7 @@
           <input type="hidden" name="id" value="${emp.getEmployee_id()}" />
           <table>
           	<% if (emp.getEmployee_id() != 0 ) { %>
-          		<tr><td>Employee ID:</td>	<td>${emp.getEmployee_id()}</td></tr>
+          		<tr><td>Employee ID:</td><td>${emp.getEmployee_id()}</td></tr>
           	<% } %>
           	<tr><td>First Name:</td>	<td><input type="text" name="fname" required value="${emp.getFirst_name()}" /></td></tr>
           	<tr><td>Last Name:</td>		<td><input type="text" name="lname" required value="${emp.getLast_name()}" /></td></tr>

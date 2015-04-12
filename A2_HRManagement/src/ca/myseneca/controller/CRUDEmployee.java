@@ -78,14 +78,18 @@ public class CRUDEmployee extends HttpServlet {
 		} else if(request.getParameter("update") != null) {
 			System.out.println(request.getParameter("id"));
 			emp.setEmployee_id(Integer.parseInt(request.getParameter("id")));
-			// TODO - handle success/failure
-			DBAccessHelper.updateEmployee(emp);
+			if (DBAccessHelper.updateEmployee(emp) == 0) {
+				request.setAttribute("Error", "Could not update record; check fields");
+				this.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
+			}
 		} else if(request.getParameter("delete") != null) {
-			// TODO - handle success/failure
-			DBAccessHelper.deleteEmployeeByID(Integer.parseInt(request.getParameter("id")));
+			if (DBAccessHelper.deleteEmployeeByID(Integer.parseInt(request.getParameter("id"))) == 0 ) {
+				request.setAttribute("Error", "Could not delete record; check fields");
+				this.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
+			}
 		}
-		getServletContext().getRequestDispatcher("/HRM_EMP" ).forward(request, response);
-		
+		response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/HRM_EMP"));
+		return;
 	}
 
 }
