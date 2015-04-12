@@ -21,7 +21,7 @@
 </head>
 <body>
 	<form id=logout action="HRM_LOGOUT" method="post">
-		<bold>${employee.first_name} ${employee.last_name}</bold>
+		<b>${employee.first_name} ${employee.last_name}</b>
 		<input type="submit" value="Logout">
 	</form>
 	<br>
