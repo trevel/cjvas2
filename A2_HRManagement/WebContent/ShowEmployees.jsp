@@ -33,7 +33,7 @@
 		</tr>
 		<c:forEach var="emp" items="${employeeList}" >
 		   <tr>
-		   	 <td><a href="<c:url value='/EditEmployee.jsp?empid=${emp.employee_id}'/>"><c:out value="${emp.employee_id}"/></a></td>
+		   	 <td><a href="<c:url value='/HRM_EMP/${emp.employee_id}'/>"><c:out value="${emp.employee_id}"/></a></td>
 		     <td><c:out value="${emp.first_name}"/></td>
 		     <td><c:out value="${emp.last_name}"/></td>		     
 		     <td><c:out value="${emp.email}"/></td>

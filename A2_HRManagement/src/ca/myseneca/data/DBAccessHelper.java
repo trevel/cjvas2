@@ -214,13 +214,20 @@ public final class DBAccessHelper {
 			}
 			// make the result set updatable
 			stmt = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			// Get the highest id, increment.
+			rs = stmt.executeQuery("SELECT max(employee_id) FROM employees");
+			rs.next();
+			int new_id = rs.getInt(1) + 1;
+			rs.close();
+			
 			rs = stmt.executeQuery(sqlQuery);
 			// make sure the result set we got back is updatable
 			if (rs.getConcurrency() == ResultSet.CONCUR_UPDATABLE) {
 				// move to where we can insert new row
 				rs.moveToInsertRow();
 				// set all the fields
-				rs.updateInt(1, emp.getEmployee_id());
+				rs.updateInt(1, new_id);
 				rs.updateString(2, emp.getFirst_name());
 				rs.updateString(3, emp.getLast_name());
 				rs.updateString(4, emp.getEmail());

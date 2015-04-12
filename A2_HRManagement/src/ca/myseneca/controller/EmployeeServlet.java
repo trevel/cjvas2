@@ -39,12 +39,18 @@ public class EmployeeServlet extends HttpServlet {
 		url = url.split("/")[url.split("/").length - 1];
 		int id;
 		Employee employee = new Employee();
-		if (url != "HRM_EMP") {
-			try {
-				id = Integer.parseInt(url);
-				employee = DBAccessHelper.getEmployeeByID(id);
-			} catch (NumberFormatException e) {
-				
+		if (url.equals("HRM_EMP")) {
+			//getServletContext().getRequestDispatcher("/HRM_EMP/new").forward(request, response);
+			response.sendRedirect(response.encodeRedirectURL("/A2_HRManagement/HRM_EMP/new"));
+			return;
+		} else {
+			if(!url.equals("new")) {
+				try {
+					id = Integer.parseInt(url);
+					employee = DBAccessHelper.getEmployeeByID(id);
+				} catch (NumberFormatException e) {
+
+				}
 			}
 		}
 		request.setAttribute("employee", employee);
@@ -52,7 +58,7 @@ public class EmployeeServlet extends HttpServlet {
 		// ArrayList<Employee> managers = DBAccessHelper.getAllEmployees();
 		ArrayList<Department> departments = DBAccessHelper.getAllDepartments();
 		request.setAttribute("departments", departments);
-		getServletContext().getRequestDispatcher("/NewEmployee.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/EditEmployee.jsp").forward(request, response);
 	}
 
 	/**

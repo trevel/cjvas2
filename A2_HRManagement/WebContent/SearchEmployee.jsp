@@ -24,7 +24,7 @@
     <nav>
       <ul> 
 		<li><a href="EmployeeList.jsp">Employee List</a></li>
-        <li><a href="NewEmployee.jsp">New Employee</a></li>
+        <li><a href="HRM_EMP/new">New Employee</a></li>
         <li><a href="SearchEmployee.jsp" class="current">Search Employees</a></li>  
       </ul>
     </nav>

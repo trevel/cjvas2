@@ -51,12 +51,16 @@ public class CRUDEmployee extends HttpServlet {
 			hire = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("hiredate"));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			getServletContext().getRequestDispatcher("/NewEmployee.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/EditEmployee.jsp").forward(request, response);
 		}
 		emp.setHire_date(new java.sql.Date(hire.getTime()));
 		emp.setJob_id(request.getParameter("jobid"));
 		emp.setSalary(new BigDecimal(request.getParameter("salary")));
-		emp.setComm_pct(new BigDecimal(request.getParameter("commpct")));
+		if (request.getParameter("commpct") == null || request.getParameter("commpct") == "") {
+			emp.setComm_pct(null);
+		} else {
+			emp.setComm_pct(new BigDecimal(request.getParameter("commpct")));
+		}
 		emp.setManager_id(Integer.parseInt(request.getParameter("mgrid")));
 		emp.setDept_id(Integer.parseInt(request.getParameter("deptid")));
 		
