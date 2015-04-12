@@ -30,6 +30,7 @@ public class EmpByDept extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		boolean bFailed = false;
 		ArrayList<Employee> empList = null;
 		int dept = 0;
 		String deptName = null;
@@ -43,18 +44,19 @@ public class EmpByDept extends HttpServlet {
 				request.setAttribute("topmessage", "Here is the information of employees from department of " + deptName);
 				empList = DBAccessHelper.getEmployeesByDepartmentID(dept);
 			} else {
-				// LAURIE::TODO error page? we got invalid department
+				request.setAttribute("errmessage", "Department " + dept + " does not exist!");
+				bFailed = true;
 			}
 		} catch (Exception e) {
-			// LAURIE:: TODO
+			bFailed = true;
 			e.printStackTrace();
-		} finally {
-			// LAURIE:: TODO - need code here
+		} 
+		if (bFailed == true) {
+			this.getServletContext().getRequestDispatcher("/errorPage.jsp").forward(request, response);
+		} else {
+			request.setAttribute("employeeList", empList);
+			this.getServletContext().getRequestDispatcher("/ShowEmployees.jsp").forward(request, response);
 		}
-		// LAURIE:: TODO error page on failure
-		request.setAttribute("employeeList", empList);
-		this.getServletContext().getRequestDispatcher("/ShowEmployees.jsp").forward(request, response);
-
 	}
 
 	/**
