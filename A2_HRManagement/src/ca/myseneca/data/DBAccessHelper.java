@@ -510,16 +510,6 @@ public final class DBAccessHelper {
 				return tmpList;
 			}
 			tmpList = new ArrayList<Employee>();
-/*			stmt = conn.prepareStatement("SELECT e.first_name, e.last_name, "
-					+ "e.email, e.phone_number, e.job_id, e.salary, d.department_name "
-					+ "FROM employees e "
-					+ "JOIN departments d"
-					+ "ON (e.department_id=d.department_id)"
-					+ "WHERE first_name LIKE ? "
-					+ "OR last_name LIKE ? "
-					+ "OR phone_number LIKE ? "
-					+ "OR email LIKE ?"
-					+ "OR d.department_name LIKE ?");*/
 			stmt = conn.prepareStatement(
 					"SELECT e.first_name, e.last_name, e.email, e.phone_number, e.job_id, e.salary, d.department_name FROM employees e "
 					+ "JOIN departments d "

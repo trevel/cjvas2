@@ -24,7 +24,6 @@ public class EmpAll extends HttpServlet {
      */
     public EmpAll() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
