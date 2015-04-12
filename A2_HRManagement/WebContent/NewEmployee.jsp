@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,9 +10,7 @@
 <jsp:useBean id="employee" class="ca.myseneca.model.Employee" scope="request">
 <jsp:setProperty name="employee" property="*"/>
 </jsp:useBean>
-<jsp:useBean id="departments" class="ca.myseneca.model.Department" scope="request">
-<jsp:setProperty name="employee" property="*"/>
-</jsp:useBean>
+
 <%
 	//check if session exists to ensure the user has gone throuht the sign-in page	
 	if (session.getAttribute("employee") == null) {
@@ -30,7 +29,7 @@
     <nav>
       <ul> 
 		<li><a href="EmployeeList.jsp">Employee List</a></li>
-        <li><a href="NewEmployee.jsp" class="current">New Employee</a></li>
+        <li><a href="HRM_EMP" class="current">New Employee</a></li>
         <li><a href="SearchEmployee.jsp">Search Employees</a></li>  
       </ul>
     </nav>
@@ -52,7 +51,12 @@
           	<tr><td>Salary</td>			<td><input type="text" name="salary" value="${employee.getSalary()}" /></td></tr>
           	<tr><td>Comm Pct:</td>		<td><input type="text" name="commpct" value="${employee.getComm_pct()}" /></td></tr>
           	<tr><td>Manager ID:</td>	<td><input type="text" name="mgrid" value="${employee.getManager_id()}" /></td></tr>
-          	<tr><td>Department ID:</td>	<td><input type="text" name="deptid" value="${employee.getDept_id()}" /></td></tr>
+          	<tr><td>Department ID:</td>	<td>
+          		<select name="deptid" >
+          			<c:forEach items="${departments}" var="dept">
+          				<option value="${dept.id}" ${dept.getId() == employee.getDept_id() ? 'selected' : ''}>${dept.name}</option>
+          			</c:forEach>
+          		</select></td></tr>
           </table>
            	<% if (employee.getEmployee_id() == 0) { %>
           		<input type="Submit" name="action" value="Save edits" /><input type="Submit" name="action" value="Delete record" />

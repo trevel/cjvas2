@@ -575,12 +575,12 @@ public final class DBAccessHelper {
 				return tmpList;
 			}
 			tmpList = new ArrayList<Department>();
-			stmt = conn.prepareStatement("SELECT department_id, department_name, "
+			stmt = conn.prepareStatement("SELECT department_id, department_name "
 					+ "FROM departments ORDER BY 1");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				// convert the data from the resultSet into Employee object
-				Department dept = new Department(rs.getInt(0), rs.getString(1));
+				Department dept = new Department(rs.getInt(1), rs.getString(2));
 				// store the employee object in the ArrayList
 				tmpList.add(dept);
 			}
@@ -600,6 +600,4 @@ public final class DBAccessHelper {
 		} // finally
 		return tmpList;
 	}
-}
-
 }

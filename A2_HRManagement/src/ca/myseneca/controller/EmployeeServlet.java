@@ -1,6 +1,7 @@
 package ca.myseneca.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ca.myseneca.data.DBAccessHelper;
+import ca.myseneca.model.Department;
 import ca.myseneca.model.Employee;
 
 /**
@@ -38,7 +40,6 @@ public class EmployeeServlet extends HttpServlet {
 		url = url.split("/")[url.split("/").length - 1];
 		int id;
 		Employee employee = new Employee();
-		System.out.println(url);
 		if (url != "HRM_EMP") {
 			try {
 				id = Integer.parseInt(url);
@@ -48,8 +49,11 @@ public class EmployeeServlet extends HttpServlet {
 			}
 		}
 		request.setAttribute("employee", employee);
-		System.out.println(employee);
 		
+		// ArrayList<Employee> managers = DBAccessHelper.getAllEmployees();
+		ArrayList<Department> departments = DBAccessHelper.getAllDepartments();
+		request.setAttribute("departments", departments);
+		System.out.println(departments);
 		getServletContext().getRequestDispatcher("/NewEmployee.jsp").forward(request, response);
 	}
 

@@ -9,7 +9,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/cjvas2/ojdbc7.jar"/>
-	<classpathentry kind="lib" path="C:/tomcat-8/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="I:/app/Oracle/product/12.1.0/dbhome_1/jdbc/lib/ojdbc7.jar"/>
+	<classpathentry kind="lib" path="I:/Coding/apache-tomcat-8.0.21/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
