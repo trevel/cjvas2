@@ -44,15 +44,12 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String state = request.getParameter("state");
 		Employee emp = null;
-		String url = null;
 
 		if (state == null) {
 			state = "clear"; // default state
 		}
 		// check current state and set URL to appropriate page
-		if ("clear".equals(state)) {
-			url = "/index.html"; // the sign-in page
-		} else if ("signin".equals(state)) {
+		if ("signin".equals(state)) {
 			try {
 				int result = DBAccessHelper.getEmployeeID(username, password);
 				if (result > 0) {
@@ -65,16 +62,16 @@ public class LoginServlet extends HttpServlet {
 					RequestDispatcher rd = getServletContext().getRequestDispatcher(
 							"/index.html");
 					PrintWriter out = response.getWriter();
-					out.println("<p style=\"color:red\">Either email or password is wrong. " 
+					out.println("<p style=\"color:red;font-size:160%\">Either email or password is wrong. " 
 							+ "Please try again.</p>");
 					rd.include(request, response);
 					return;		 
 				}
 			} catch (Exception ex) {
-
-			} finally {
-				
-			}
+				getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+			} 
+		} else {
+			getServletContext().getRequestDispatcher("/index.html").forward(request, response);	
 		}
 	}
 
