@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -15,7 +15,7 @@
 </head>
 <body>
 	<form id=logout action="HRM_LOGOUT" method="post">
-		<bold>${employee.first_name} ${employee.last_name}</bold>
+		<b>${employee.first_name} ${employee.last_name}</b>
 		<input type="submit" value="Logout">
 	</form>
 	<br>
@@ -37,18 +37,20 @@
 		<div class="content">
 		<p>Show employees in a department by typing in the 
 		department id and click on the button next, or click on the 
-		Show All Employees button for all employees in the company.</p>
+		Show All Employees button for all employees in the company:</p>
 		<form action="HRM_DEPTEMP" method="post">
-			Department ID:
+			<label>Department ID:</label>
 			<input type="number" name="dept_id" min="0" max="10000">
 			<br>
 			<br>
+			<label></label>
 			<input type="submit" value="Show Department Employees">
 			<br>
 			<br>
 			<br>
 		</form>
 		<form action="HRM_ALLEMP" method="post">
+			<label></label>
 			<input type="submit" value="Show All Employees">
 		</form>
 		</div>

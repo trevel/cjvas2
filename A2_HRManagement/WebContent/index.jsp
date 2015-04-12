@@ -10,11 +10,12 @@
 <p>Type your user name and password to login to the system:</p>
 	<form action="HRM_LOGIN" method="post">
 	    <input type="hidden" name="state" value="signin"> 
-		<label class="pad_top">User Name:</label>
+		<label>User Name:</label>
 		<input type="text" name="username"><br>
-		<label class="pad_top">Password:</label>	
+		<label>Password:</label>	
 		<input type="password" name="password" ><br>
 		<br>
+		<label></label>
 		<input type="submit" value="Login">
 	</form>
 </body>

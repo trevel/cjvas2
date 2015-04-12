@@ -11,10 +11,6 @@ import ca.myseneca.model.Employee;
  * @author Laurie Shields (034448142), Mark Lindan (063336143)
  *
  */
-/**
- * @author Laurie
- *
- */
 public final class DBAccessHelper {
 
 	/**
@@ -440,6 +436,12 @@ public final class DBAccessHelper {
 		return retVal;
 	}
 	
+	/**
+	 * get the name of a department
+	 * 
+	 * @param deptId
+	 * @return the name of the department
+	 */
 	public static String getDepartmentNameByID(int deptId) {
 		String deptName = null;
 		PreparedStatement stmt = null;
@@ -563,6 +565,12 @@ public final class DBAccessHelper {
 			return null;
 		}
 	}
+	
+	/**
+	 * get a list of all the departments
+	 * 
+	 * @return a list of all departments. null if there are none
+	 */
 	public static ArrayList<Department> getAllDepartments() {
 		ArrayList<Department> tmpList = null;
 		PreparedStatement stmt = null;
