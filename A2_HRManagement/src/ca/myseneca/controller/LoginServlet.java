@@ -43,7 +43,9 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String state = request.getParameter("state");
 		Employee emp = null;
-
+		String errMsg = null;
+		RequestDispatcher rd = null;
+		
 		if (state == null) {
 			state = "clear"; // default state
 		}
@@ -57,20 +59,21 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("employee", emp);
 					session.setMaxInactiveInterval(30 * 60);
 					response.sendRedirect("EmployeeList.jsp");
+					return;
 				} else {
-					RequestDispatcher rd = getServletContext().getRequestDispatcher(
-							"/index.html");
-					PrintWriter out = response.getWriter();
-					out.println("<p style=\"color:red;font-size:160%\">Either email or password is wrong. " 
-							+ "Please try again.</p>");
-					rd.include(request, response);
-					return;		 
+					errMsg = "Either email or password is wrong. Please try again!";	 
 				}
 			} catch (Exception ex) {
-				getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+				errMsg = "Server was unable to process your login request!";
 			} 
 		} else {
-			getServletContext().getRequestDispatcher("/index.html").forward(request, response);	
+			errMsg = "Error with login. Please try again!";
+		}
+		rd = getServletContext().getRequestDispatcher("/index.html");
+		if (rd != null) {
+			PrintWriter out = response.getWriter();
+			out.println("<p style=\"color:red;font-size:160%\">" + errMsg + "</p>");
+			rd.include(request, response);	
 		}
 	}
 
