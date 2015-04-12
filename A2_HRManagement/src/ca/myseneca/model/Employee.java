@@ -23,6 +23,7 @@ public class Employee implements java.io.Serializable {
 	BigDecimal comm_pct = null;
 	int manager_id;
 	int dept_id;
+	String dept_name = null;
 	
 	public Employee() {
 		super();
@@ -161,6 +162,19 @@ public class Employee implements java.io.Serializable {
 		this.dept_id = dept_id;
 	}
 	
+	/**
+	 * @return the dept_name
+	 */
+	public String getDept_name() {
+		return dept_name;
+	}
+
+	/**
+	 * @param dept_id the dept_id to set
+	 */
+	public void setDept_name(String dept_name) {
+		this.dept_name=dept_name;
+	}
 
 	/* output the Employee objects in a nice format */
 	public String toString() {

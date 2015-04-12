@@ -31,14 +31,21 @@ public class SearchEmp extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String search = request.getParameter("searchStr");
-		// LAURIE:: TODO - need code here
-		ArrayList<Employee> empList = DBAccessHelper.searchEmployeesByStr(search);
-		if (empList != null) {
-			
-		} else {
-			
+		String search = null;
+		ArrayList<Employee> empList = null;
+		try {
+			search = request.getParameter("searchStr");
+			empList = DBAccessHelper.searchEmployeesByStr(search);
+		} catch (Exception e) {
+			// LAURIE:: TODO
+			e.printStackTrace();
+		} finally {
+			// LAURIE:: TODO - need code here
 		}
+		// LAURIE:: TODO - error page for failure
+		request.setAttribute("topmessage", "Employee search results for input: " + search);
+		request.setAttribute("employeeList", empList);
+		this.getServletContext().getRequestDispatcher("/ShowSearch.jsp").forward(request, response);
 	}
 
 	/**
