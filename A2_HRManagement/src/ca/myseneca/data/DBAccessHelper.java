@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import ca.myseneca.data.DBConnPool;
+import ca.myseneca.model.Department;
 import ca.myseneca.model.Employee;
 
 /**
@@ -148,7 +149,7 @@ public final class DBAccessHelper {
 		} // finally
 		return tmpList;
 	}
-		
+
 	/**
 	 * Get the Employee object for a specific employee_id
 	 * 
@@ -438,8 +439,8 @@ public final class DBAccessHelper {
 		}
 		return retVal;
 	}
-	
-	
+
+
 	/**
 	 * Searches for employees by a specified string
 	 * 
@@ -526,5 +527,43 @@ public final class DBAccessHelper {
 		} else {
 			return null;
 		}
+	}
+
+	public static ArrayList<Department> getAllDepartments() {
+		ArrayList<Department> tmpList = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DBConnPool pool = DBConnPool.getInstance();
+		Connection conn = null;
+		try {
+			conn = pool.getConnection();
+			if (conn == null) {
+				return tmpList;
+			}
+			tmpList = new ArrayList<Department>();
+			stmt = conn.prepareStatement("SELECT department_id, department_name, "
+					+ "FROM departments ORDER BY 1");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				// convert the data from the resultSet into Employee object
+				Department dept = new Department(rs.getInt(0), rs.getString(1));
+				// store the employee object in the ArrayList
+				tmpList.add(dept);
+			}
+		} catch (SQLException e) {
+			DBUtilities.printSQLException(e);
+		} finally {
+			try {
+				// clean up
+				if (stmt != null)
+					stmt.close();
+				if (rs != null)
+					rs.close();
+				pool.freeConnection(conn);
+			} catch (SQLException e) {
+				DBUtilities.printSQLException(e);
+			}
+		} // finally
+		return tmpList;
 	}
 }

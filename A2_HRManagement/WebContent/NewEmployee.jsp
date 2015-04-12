@@ -6,6 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>New Employee Page</title>
 <link rel="stylesheet" href="styles/main.css" media="screen"/>
+<jsp:useBean id="employee" class="ca.myseneca.model.Employee" scope="request">
+<jsp:setProperty name="employee" property="*"/>
+</jsp:useBean>
+<jsp:useBean id="departments" class="ca.myseneca.model.Department" scope="request">
+<jsp:setProperty name="employee" property="*"/>
+</jsp:useBean>
 <%
 	//check if session exists to ensure the user has gone throuht the sign-in page	
 	if (session.getAttribute("employee") == null) {
@@ -32,6 +38,29 @@
     <section class="main">
     	<header>
           <h1 id="template"><span>New Employee Page</span></h1>
+          <form action="CRUDEmployee" method="post">
+          <table>
+          	<% if (employee.getEmployee_id() != 0 ) { %>
+          		<tr><td>Employee ID:</td>	<td><%=employee.getEmployee_id()%></td></tr>
+          	<% } %>
+          	<tr><td>First Name:</td>	<td><input type="text" name="fname" value="${employee.getFirst_name()}" /></td></tr>
+          	<tr><td>Last Name:</td>		<td><input type="text" name="lname" value="${employee.getLast_name()}" /></td></tr>
+          	<tr><td>Email:</td>			<td><input type="text" name="email" value="${employee.getEmail()}" /></td></tr>
+          	<tr><td>Phone Number:</td>	<td><input type="text" name="phone" value="${employee.getPhone_number()}" /></td></tr>
+          	<tr><td>Hire Date:</td>		<td><input type="text" name="hiredate" value="${employee.getHire_date()}" /></td></tr>
+          	<tr><td>Job ID:</td>		<td><input type="text" name="jobid" value="${employee.getJob_id()}" /></td></tr>
+          	<tr><td>Salary</td>			<td><input type="text" name="salary" value="${employee.getSalary()}" /></td></tr>
+          	<tr><td>Comm Pct:</td>		<td><input type="text" name="commpct" value="${employee.getComm_pct()}" /></td></tr>
+          	<tr><td>Manager ID:</td>	<td><input type="text" name="mgrid" value="${employee.getManager_id()}" /></td></tr>
+          	<tr><td>Department ID:</td>	<td><input type="text" name="deptid" value="${employee.getDept_id()}" /></td></tr>
+          </table>
+           	<% if (employee.getEmployee_id() == 0) { %>
+          		<input type="Submit" name="action" value="Save edits" /><input type="Submit" name="action" value="Delete record" />
+          	<% } else { %>
+          		<input type="Submit" name="action" value="Save new employee" />
+          	<% } %>
+          
+          </form>
         </header>
         <!-- HTML5 and normalize.css -->
 		<div class="content">
