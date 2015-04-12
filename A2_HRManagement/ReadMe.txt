@@ -35,8 +35,10 @@ management so that if the user has multiple tabs open while logged in, if
 they log out of the one tab, then the other tabs will return to the login
 page when they attempt any operations.
 
-Our submission file is A2-llshields.melindan.war. Our login page can be 
+Our submission file is A2-shields.laurie.war. Our login page can be 
 accessed at http://localhost:8080/A2_HRManagement/index.html
+
+Our javadocs can be accessed from the A2_HRManagement/doc/index.html file.
 
 Other notes
 ===========
