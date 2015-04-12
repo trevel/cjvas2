@@ -24,7 +24,6 @@ public class SearchEmp extends HttpServlet {
      */
     public SearchEmp() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -32,20 +31,24 @@ public class SearchEmp extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String search = null;
+		boolean bFailed = false;
 		ArrayList<Employee> empList = null;
 		try {
 			search = request.getParameter("searchStr");
 			empList = DBAccessHelper.searchEmployeesByStr(search);
 		} catch (Exception e) {
-			// LAURIE:: TODO
+			bFailed = true;
+			request.setAttribute("statusmessage", "An error has occurred!");
 			e.printStackTrace();
-		} finally {
-			// LAURIE:: TODO - need code here
 		}
-		// LAURIE:: TODO - error page for failure
-		request.setAttribute("topmessage", "Employee search results for input: " + search);
-		request.setAttribute("employeeList", empList);
-		this.getServletContext().getRequestDispatcher("/ShowSearch.jsp").forward(request, response);
+		if (bFailed == true) {
+			this.getServletContext().getRequestDispatcher("/statusPage.jsp").forward(request, response);
+		} else {
+			request.setAttribute("topmessage", "Employee search results for input: " + search);
+			request.setAttribute("employeeList", empList);
+			this.getServletContext().getRequestDispatcher("/ShowSearch.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
