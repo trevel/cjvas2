@@ -37,8 +37,7 @@ public class CRUDEmployee extends HttpServlet {
 	 * Should never be called; forwards the request do the default index page. 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		getServletContext().getRequestDispatcher("/index.html").forward(request, response);
 	}
 
 	/**

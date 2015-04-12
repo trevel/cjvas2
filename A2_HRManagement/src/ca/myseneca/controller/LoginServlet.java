@@ -32,8 +32,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// This should be an error if we get here
+		getServletContext().getRequestDispatcher("/index.html").forward(request, response);
 	}
 
 	/**
@@ -52,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		// check current state and set URL to appropriate page
 		if ("clear".equals(state)) {
-			url = "/index.jsp"; // the sign-in page
+			url = "/index.html"; // the sign-in page
 		} else if ("signin".equals(state)) {
 			try {
 				int result = DBAccessHelper.getEmployeeID(username, password);
@@ -64,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("EmployeeList.jsp");
 				} else {
 					RequestDispatcher rd = getServletContext().getRequestDispatcher(
-							"/index.jsp");
+							"/index.html");
 					PrintWriter out = response.getWriter();
 					out.println("<p style=\"color:red\">Either email or password is wrong. " 
 							+ "Please try again.</p>");
